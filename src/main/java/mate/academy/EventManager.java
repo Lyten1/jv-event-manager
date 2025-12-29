@@ -21,11 +21,7 @@ public class EventManager {
 
     public void notifyEvent(Event event) {
         for (EventListener listener : eventListeners) {
-            Callable<Void> task = () -> {
-                listener.onEvent(event);
-                return null;
-            };
-            executorService.submit(task);
+            executorService.submit(() -> listener.onEvent(event));
         }
     }
 
